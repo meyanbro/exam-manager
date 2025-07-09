@@ -1,0 +1,20 @@
+{% extends "base.html" %}
+
+{% block title %}Home{% endblock %}
+
+
+{% block content %}
+<style>
+    h3{
+        color:red;
+    }
+</style>
+<h3> Error (केही समस्या आई पर्यो) !!</h3>
+<p>The selected subject is not found for the given class.</p>
+<br>
+<p>छानिएको कक्षामा उक्त विषय भेटिएन । </p>
+<br>
+<form action="/" method="get">
+<button type='submit'  class="btn-warning w-100">Back to Home</button>
+</form>
+{% endblock %}

@@ -1,0 +1,69 @@
+{% extends "base.html" %}
+
+{% block title %}Home{% endblock %}
+
+{% block content %}
+<div class="text-center">
+    <h1 class="mb-4">Welcome to the Result Management System</h1>
+    <div class="d-grid gap-3 col-6 mx-auto">
+        <button class="btn btn-primary btn-lg" onclick="window.location.href='/view-class'">
+            View Your Class<br>
+            <span>तपाईंको कक्षा हेर्नुहोस्</span>
+        </button>
+    </div>
+    {% if is_coord %}
+        <div class="row mt-4">
+        <div class="col-12">
+            <a href="{{ url_for('admin_panel') }}" class="btn btn-danger btn-lg w-100">
+                <i class="bi bi-shield-lock me-2"></i>
+                समन्वयक प्यानल | Go to Coordinator's Panel
+            </a>
+        </div>
+        </div>
+{% endif %}
+</div>
+<br><br>
+<hr>
+<h3>Add Marks for a Certain Class:</h3>
+<h3>कुनै कक्षाको अंक हाल्नुहोस्</h3>
+<br><br>
+<div class="mb-4">
+    <label for="classSelector" class="form-label">Select Class (कक्षा छयन गर्नुहोस्):</label>
+    <select id="classSelector" class="form-select">
+        <option value="" selected disabled>Select a class:</option>
+        {% for class in classes %}
+        <option value="{{ class }}">{{ class }}</option>
+        {% endfor %}
+    </select>
+</div>
+
+<p>Select a Subject (विषय छयन गर्नुहोस्):</p>
+<div id="subjectButtons" class="row mt-3">
+    {% for subject in subjects %}
+    <div class="col-6 col-md-3 mb-3">
+        <form action="/process-selection" method="POST" class="subject-form">
+            <input type="hidden" name="class" value="" class="selected-class">
+            <input type="hidden" name="subject" value="{{ subject }}">
+            <button type="submit" class="btn btn-warning w-100" disabled>{{ subject }}</button>
+        </form>
+    </div>
+    {% endfor %}
+</div>
+<p>माथि कक्षा छाने पछि मात्र, विषय छान्न मिल्ने छ।</p>
+
+
+<script>
+    // Enable buttons when a class is selected and set hidden input values
+    document.getElementById("classSelector").addEventListener("change", function () {
+        const selectedClass = this.value; // Get the selected class
+        const forms = document.querySelectorAll(".subject-form");
+
+        forms.forEach(form => {
+            // Update hidden input value for class
+            form.querySelector(".selected-class").value = selectedClass;
+            // Enable the button
+            form.querySelector("button").disabled = false;
+        });
+    });
+</script>
+{% endblock %}

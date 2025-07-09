@@ -1,0 +1,38 @@
+{% extends "base.html" %}
+
+{% block title %}About Us{% endblock %}
+<!-- making each other of different json while integrating stuff with each oit -->
+{% block content %}
+<div class="container mt-5">
+    <h1 class="text-center">About Us</h1>
+    <h3 class="text-center">हाम्रोबारे</h3>
+    <div class="row mt-4">
+        <div class="col-md-6">
+            <!-- <img src="{{ url_for('static', filename='about_us.jpg') }}" class="img-thumbnail" alt="About Us"> -->
+            <img src="{{ url_for('static', filename='about_us.jpg') }}" style="width: 120px; height: 120px; border-radius: 50%; object-fit: cover; object-position: center;">        </div>
+        <div class="col-md-6">
+            <p>
+                Welcome to the <b>Result Management System</b>, designed to simplify and streamline 
+                the process of managing and analyzing student results. Our system is tailored 
+                to help teachers efficiently handle grades and student performance while 
+                offering flexibility for classroom management.
+            </p>
+            <p>
+                हाम्रो नतिजा व्यवस्थापन प्रणाली शिक्षकहरूलाई विद्यार्थीहरूको प्रदर्शन 
+                व्यवस्थापन गर्न सजिलो बनाउन डिजाइन गरिएको छ। यो प्रणाली आधुनिक, 
+                उपयोगकर्ता-अनुकूल र प्रत्येक कक्षाको आवश्यकता पूरा गर्न अनुकूलन गरिएको छ।
+            </p>
+            <p>
+                With user-friendly interfaces, responsive design, and efficient workflows, we aim to make 
+                the teaching experience more productive and enjoyable.
+            </p>
+        </div>
+    </div>
+    <div class="mt-5">
+        <h3>Contact Us</h3>
+        <p>Email: dareludum@gmail.com</p>
+        <p>Phone: 9867647549</p>
+        <p>Address: Ilam, Nepal</p>
+    </div>
+</div>
+{% endblock %}

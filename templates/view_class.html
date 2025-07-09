@@ -1,0 +1,172 @@
+{% extends "base.html" %}
+
+{% block title %}कक्षा अवलोकन | Class Overview{% endblock %}
+
+{% block content %}
+<div class="container-fluid">
+    <!-- Back to Homepage Button -->
+    <div class="row mb-4">
+        <div class="col-12 text-end">
+            <a href="{{ url_for('home') }}" class="btn btn-outline-primary btn-lg">
+                <i class="bi bi-house-fill me-2"></i>होम पेज | Home Page
+            </a>
+        </div>
+    </div>
+
+    <!-- Class Information Section -->
+    <div class="card mb-4">
+        <div class="card-header bg-primary text-white">
+            <h2 class="card-title">
+                <i class="bi bi-info-circle me-2"></i>कक्षा सूचना | Class Information
+            </h2>
+        </div>
+        <div class="card-body">
+            <div class="row">
+                <div class="col-md-3">
+                    <strong>कक्षा | Class:</strong> {{ class_name }}
+                </div>
+                <div class="col-md-3">
+                    <strong>कुल विद्यार्थी | Total Students:</strong> {{ total_students }}
+                </div>
+                <div class="col-md-3">
+                    <strong>उत्तीर्ण दर | Pass Rate:</strong> {{ pass_rate }}%
+                </div>       
+            </div>
+        </div>
+    </div>
+    <div class="card">
+        <div class="card-header bg-success text-white">
+            <h2 class="card-title">
+                <i class="bi bi-people-fill me-2"></i>सबै विद्यार्थीहरूको प्रदर्शन | All Students Performance
+            </h2>
+        </div>
+        <div class="card-body">
+            <table class="table table-hover">
+                <thead>
+                    <tr>
+                        <th>Rank</th>
+                        <th>Name</th>
+                        <th>Symbol No</th>
+                        <th>Percentage</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for student in all_students %}
+                    <tr>
+                        <td>{{ ranks[loop.index-1]}}</td>
+                        <td>{{ student.name }}</td>
+                        <td>{{ student.symbolNo }}</td>
+                      
+                        <td>{{ percentanges[loop.index-1] }}%</td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <!-- Failed Students Section -->
+    <div class="card mb-4">
+        <div class="card-header bg-danger text-white">
+            <h2 class="card-title">
+                <i class="bi bi-exclamation-triangle me-2" id="target-selection"></i>असफल विद्यार्थीहरू | Failed Students
+            </h2>
+        </div>
+        <div class="card-body">
+            <form action="/change-marks" method="POST">
+                <table class="table table-striped table-bordered">
+                    <thead>
+                        <tr>
+                            <th>Name</th>
+                            <th>Symbol No</th>
+                            <th>Failed Subjects</th>
+                        
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for student in failed_students %}
+                        <tr>
+                            <td>{{ student.name }}</td>
+                            <td>
+                                <input type="text" 
+                                       name="symbol_no_{{ student.name }}" 
+                                       value="{{ student.symbolNo }}" 
+                                       class="form-control"
+                                       disabled
+                                >
+                               
+                            </td>
+                            <td>
+                                {% for subject  in subs %}
+                                    {% if student.obtained[subject][0] < subject.pas %}
+                                    <div class="mb-2">
+                                        <label>{{ subject.name }}</label>
+                                        <input type="number" 
+                                               name="marks_{{ student.name }}_{{ subject.name }}" 
+                                               value="{{ student.obtained[subject][0] }}" 
+                                               class="form-control"
+                                               min="0" max="100"
+                                        >
+                                    </div>
+                                    {% endif %}
+                                {% endfor %}
+                            </td>
+                          
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+                <div class="text-center">
+                    <button type="submit" class="btn btn-danger">
+                        <i class="bi bi-save me-2"></i>परिवर्तनहरू सुरक्षित गर्नुहोस् | Save Changes
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- All Students Section -->
+     <!-- Add this section right after the "All Students Performance" card -->
+<div class="card mt-4">
+    <div class="card-header bg-warning text-white">
+        <h2 class="card-title">
+            <i class="bi bi-pencil-fill me-2"></i>Edit Student Symbol Numbers
+        </h2>
+    </div>
+    <div class="card-body" id="symbol">
+        <form action="/update-symbol-numbers" method="POST">
+            <table class="table table-bordered table-hover">
+                <thead>
+                    <tr>
+                        <th>Name</th>
+                        <th>Current Symbol No</th>
+                        <th>New Symbol No</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for student in all_students %}
+                    <tr>
+                        <td>{{ student.name }}</td>
+                        <td>{{ student.symbolNo }}</td>
+                        <td>
+                            <input type="number" 
+                                   name="new_symbol_no_{{ student.name }}" 
+                                   class="form-control" 
+                                   value="{{ student.symbolNo }}"
+                            >
+                        </td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+            <div class="text-center">
+                <button type="submit" class="btn btn-warning">
+                    <i class="bi bi-save me-2"></i>अपडेट गर्नुहोस् | Update Symbol Numbers
+                </button>
+            </div>
+        </form>
+    </div>
+</div>
+    
+</div>
+{% endblock %}

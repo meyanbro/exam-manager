@@ -1,0 +1,36 @@
+/* Navbar Customization */
+.navbar {
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+/* Button Styling */
+.btn-lg {
+    font-size: 1.2rem;
+}
+
+.btn-warning {
+    font-size: 1rem;
+    font-weight: bold;
+}
+
+/* Footer Styling */
+footer {
+    margin-top: 20px;
+}
+body {
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+}
+
+main {
+    flex: 1;
+}
+
+footer {
+    background: #004c99;
+    color: white;
+    text-align: center;
+    padding: 0.5rem 0;
+    font-size: 0.9rem;
+}

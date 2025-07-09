@@ -1,0 +1,93 @@
+{% extends "base.html" %}
+
+{% block title %}लगइन | Login{% endblock %}
+
+{% block content %}
+<div class="container-fluid d-flex justify-content-center align-items-center" style="height: 100vh; background-color: #f4f6f9;">
+    <div class="card shadow-lg" style="width: 100%; max-width: 400px;">
+        <div class="card-header bg-primary text-white text-center">
+            <h2 class="card-title mb-0">
+                <i class="bi bi-lock-fill me-2"></i>विद्यालय प्रणाली
+            </h2>
+        </div>
+        <div class="card-body p-4">
+            <form action="{{ url_for('home') }}" method="POST">
+                <!-- Username Field -->
+                <div class="mb-3">
+                    <label for="username" class="form-label">
+                        <i class="bi bi-person-fill me-2"></i>प्रयोगकर्ता नाम | Username
+                    </label>
+                    <input type="text" 
+                           class="form-control" 
+                           id="username" 
+                           name="username" 
+                           required 
+                           placeholder="Enter your username"
+                    >
+                </div>
+
+                <!-- Password Field -->
+                <div class="mb-3">
+                    <label for="password" class="form-label">
+                        <i class="bi bi-key-fill me-2"></i>पासवर्ड | Password
+                    </label>
+                    <input type="password" 
+                           class="form-control" 
+                           id="password" 
+                           name="password" 
+                           required 
+                           placeholder="Enter your password"
+                    >
+                </div>
+
+             
+
+                <!-- Login Button -->
+                <div class="d-grid">
+                    <button type="submit" class="btn btn-success btn-lg">
+                        <i class="bi bi-box-arrow-in-right me-2"></i>लगइन | Login
+                    </button>
+                </div>
+
+                <!-- Forgot Password Link -->
+                <div class="text-center mt-3">
+                    <a href="" class="text-primary text-decoration-none">
+                        <i class="bi bi-question-circle me-2"></i>पासवर्ड बिर्सनुभयो? | Forgot Password?
+                    </a>
+                </div>
+            </form>
+        </div>
+
+        <!-- Footer -->
+        <div class="card-footer text-center text-muted">
+            <small>
+                © {{ current_year }} विद्यालय व्यवस्थापन प्रणाली | मेयन अधिकारी
+            </small>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block scripts %}
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    const form = document.querySelector('form');
+    form.addEventListener('submit', function(e) {
+        const username = document.getElementById('username');
+        const password = document.getElementById('password');
+
+        if (!username.value.trim()) {
+            e.preventDefault();
+            username.classList.add('is-invalid');
+            username.focus();
+        }
+
+        if (!password.value.trim()) {
+            e.preventDefault();
+            password.classList.add('is-invalid');
+            password.focus();
+        }
+    });
+});
+</script>
+{% endblock %}
