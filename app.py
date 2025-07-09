@@ -3,6 +3,9 @@ import pickle
 from datetime import timedelta
 from artifacts import * 
 from others import *
+import os
+port = int(os.environ.get("PORT", 5000))
+
     
 workingExamination = MainSystem.load("exam.mey")
 
@@ -346,4 +349,4 @@ def process_selection():
     
     
 
-app.run()
+app.run(host="0.0.0.0",port=port)
